@@ -25,11 +25,11 @@ async function listTabs(tabs) {
         if (tab.audible) {
             let media = document.createElement("p");
             media.style = "color: blue; font-style: oblique;"
-            media.textContent = `${tab.title}`;
+            media.textContent = tab.title;
             let switch_tab = document.createElement("button");
-            switch_tab.textContent = `switch tab`;
+            switch_tab.textContent = "switch tab";
             switch_tab.onclick = async function () {
-                let switch_action = browser.tabs.update(tab.id, { active: true });
+                let switch_action = await browser.tabs.update(tab.id, { active: true });
                 if (switch_action)
                     console.log("Switched tab");
                 else
