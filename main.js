@@ -1,14 +1,8 @@
-// const htmlDOM = document.getElementById("popup-content");
-
-// htmlDOM.addEventListener("click", async function () {
-//     await listTabs(await getAudibleTabTitle());
-// });
-
 document.addEventListener("DOMContentLoaded", async function () {
-    await listTabs(await getAudibleTabTitle());
+    await listTabs(await getAudibleTabs());
 });
 
-async function getAudibleTabTitle() {
+async function getAudibleTabs() {
     return await browser.tabs.query({audible: true});
 }
 
