@@ -11,7 +11,7 @@ function GenerateHTMLElements(tab) {
     let media_text = document.createElement("p");
     let media_ico = document.createElement("img");
     media_ico.src = tab.favIconUrl;
-    media_ico.style = "style= width: 45px; height: 45px;";
+    media_ico.style = "style= width: 25px; height: 25px;";
     media_text.style = "color: blue; font-style: oblique;";
     media_text.textContent = tab.title;
     let switch_tab = document.createElement("button");

@@ -1,3 +1,3 @@
 ## MediaTab
 
-Shows tabs playing media and integrates with Spotify SDK
+Firefox extension that shows tabs playing media and controls Spotify playback using Spotify API

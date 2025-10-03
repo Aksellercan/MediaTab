@@ -1,14 +1,14 @@
 {
-  "manifest_version":2,
-  "version":"1.0",
-  "name":"MediaTab",
-  "description": "Shows tabs playing media and integrates with Spotify SDK",
+    "manifest_version": 2,
+    "version": "1.0",
+    "name": "MediaTab",
+    "description": "Shows tabs playing media and integrates with Spotify SDK",
 
-  "permissions": ["activeTab", "tabs"],
+    "permissions": ["activeTab", "tabs"],
 
-  "browser_action": {
-    "default_icon": "icons/favicon.ico",
-    "default_title": "Beastify",
-    "default_popup": "popup/index.html"
-  }
+    "browser_action": {
+        "default_icon": "icons/favicon.ico",
+        "default_title": "MediaTab",
+        "default_popup": "popup/index.html"
+    }
 }
