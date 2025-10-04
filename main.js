@@ -8,15 +8,24 @@ async function getAudibleTabs() {
     return await browser.tabs.query({ audible: true });
 }
 
+function LimitTabName(name) {
+    console.debug(`Tab name length: ${name.length}`);
+    let limit = 80;
+    if (name.length < limit) {
+        return name;
+    }
+    return name.substring(0,limit).concat("...");
+}
+
 function CreateTitleElements(tab) {
     let title_container = document.createElement("div");
     let media_text = document.createElement("p");
     let media_ico = document.createElement("img");
     media_ico.src = tab.favIconUrl;
-    media_ico.style = "style= width: 25px; height: 25px;";
+    media_ico.className = "favicon";
     media_text.style =
-        "width: 50%; color: black; font-weight: semi-bold; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
-    media_text.textContent = tab.title;
+        "color: black; font-weight: semi-bold; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
+    media_text.textContent = LimitTabName(tab.title);
     title_container.appendChild(media_ico);
     title_container.appendChild(media_text);
     return title_container;
@@ -36,6 +45,7 @@ function UnMuteTab() {
 function MuteTab(tab) {
     let mute_tab = document.createElement("button");
     mute_tab.textContent = "M";
+    mute_tab.type = "Mute";
     mute_tab.style = "width: 15%; background-colour: blue";
     mute_tab.onclick = function () {
         let mute_action = browser.tabs.update(tab.id, { muted: true });
@@ -51,6 +61,7 @@ function MuteTab(tab) {
 function CloseTab(tab) {
     let close_tab = document.createElement("button");
     close_tab.textContent = "X";
+    close_tab.type = "Term"
     close_tab.style = "width: 15%; background-colour: red";
     close_tab.onclick = function () {
         let close_action = browser.tabs.remove(tab.id);
@@ -64,7 +75,7 @@ function CloseTab(tab) {
 function SwitchTab(tab) {
     let switch_tab = document.createElement("button");
     switch_tab.textContent = "Switch to tab";
-    switch_tab.style = "width: 70%";
+    switch_tab.style = "width: 70%;";
     switch_tab.onclick = function () {
         let switch_action = browser.tabs.update(tab.id, { active: true });
         if (switch_action) console.debug(`Switched tab to tabid ${tab.id}`);
