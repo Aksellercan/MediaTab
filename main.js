@@ -1,8 +1,10 @@
-import Tab from "./Tab.js";
+Start();
 
-document.addEventListener("DOMContentLoaded", async function () {
-    await listTabs(await getAudibleTabs());
-});
+async function Start() {
+    const Outer_Container = document.getElementById("Outer_Container");
+    await listAudibleTabs(Outer_Container);
+    await listMutedTabs(Outer_Container);
+}
 
 async function getAudibleTabs() {
     return await browser.tabs.query({ currentWindow: true, audible: true });
@@ -111,8 +113,7 @@ function GenerateMutedTabElements(tab) {
     return media_div;
 }
 
-async function listTabs(tabs) {
-    const Outer_Container = document.getElementById("Outer_Container");
+async function listMutedTabs(Outer_Container) {
     let mutedTabs = await getMutedTabs();
     console.log(`Muted tabs length: ${mutedTabs.length}`);
     if (mutedTabs.length > 0) {
@@ -121,21 +122,25 @@ async function listTabs(tabs) {
             console.debug(`Muted Tab: ${tab.title}`);
         }
     }
-    if (tabs.length < 1) {
-        let media = document.createElement("p");
-        media.style = "color: red;";
-        media.textContent = "No tabs playing audio";
-        Outer_Container.appendChild(media);
-        console.warn("No tabs playing audio");
+}
+
+function NoTabs() {
+    let media = document.createElement("p");
+    media.style = "color: red;";
+    media.textContent = "No tabs playing audio";
+    console.warn("No tabs playing audio");
+    return media;
+}
+
+async function listAudibleTabs(Outer_Container) {
+    let audibleTabs = await getAudibleTabs();
+    if (audibleTabs.length < 1) {
+        Outer_Container.appendChild(NoTabs());
     }
-    let count = 0;
-    for (const tab of tabs) {
+    for (const tab of audibleTabs) {
         if (tab.audible) {
             Outer_Container.appendChild(GenerateTabElements(tab));
-            count++;
-            console.debug(`Tab ${count}: ${tab.title}`);
+            console.debug(`Tab: ${tab.title}`);
         }
     }
-    if (count != 0)
-        console.info("Found " + count + (count > 1 ? " items" : " item"));
 }
