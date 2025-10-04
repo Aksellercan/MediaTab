@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "version": "1.0",
     "name": "MediaTab",
-    "description": "Shows tabs playing media and integrates with Spotify SDK",
+    "description": "Shows tabs playing media and integrates with Spotify API",
 
     "permissions": ["activeTab", "tabs"],
 
