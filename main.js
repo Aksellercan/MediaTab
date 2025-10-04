@@ -58,7 +58,6 @@ function MuteTab(tab) {
         let mute_action = browser.tabs.update(tab.id, { muted: true });
         if (mute_action) console.debug(`Muted tab with tabid ${tab.id}`);
         else console.error("Error muting tab");
-        let mutedTab = new Tab(tab.id, true);
         window.close();
     };
     return mute_tab;

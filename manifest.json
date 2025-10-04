@@ -6,8 +6,16 @@
 
     "permissions": ["activeTab", "tabs"],
 
+    "browser_specific_settings": {
+        "gecko": {
+            "data_collection_permissions": {
+                "required": ["none"]
+            }
+        }
+    },
+
     "browser_action": {
-        "default_icon": "icons/favicon.ico",
+        "default_icon": "icons/favicon.png",
         "default_title": "MediaTab",
         "default_popup": "popup/index.html"
     }
