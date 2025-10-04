@@ -18,7 +18,7 @@ function LimitTabName(name) {
     if (name.length < limit) {
         return name;
     }
-    return name.substring(0,limit).concat("...");
+    return name.substring(0, limit).concat("...");
 }
 
 function CreateTitleElements(tab) {
@@ -27,28 +27,21 @@ function CreateTitleElements(tab) {
     let media_ico = document.createElement("img");
     media_ico.src = tab.favIconUrl;
     media_ico.className = "favicon";
-    media_text.style =
-        "color: black; font-weight: semi-bold; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
     media_text.textContent = LimitTabName(tab.title);
     title_container.appendChild(media_ico);
     title_container.appendChild(media_text);
     return title_container;
 }
 
-function UnMuteTab() {
+function UnMuteTab(tab) {
     let unmute_tab = document.createElement("button");
     unmute_tab.textContent = "U";
     unmute_tab.type = "Mute";
     unmute_tab.style = "width: 15%; background-colour: blue";
     unmute_tab.onclick = function () {
-        let parsed_tab_obj = JSON.parse(localStorage.getItem("mutedTab"));
-        let unmute_action = browser.tabs.update(parsed_tab_obj.tabid, {
-            muted: false,
-        });
-        if (unmute_action)
-            console.debug(`Un-muted tab with tabid ${parsed_tab_obj.tabid}`);
+        let unmute_action = browser.tabs.update(tab.id, { muted: false });
+        if (unmute_action) console.debug(`Un-muted tab with tabid ${tab.id}`);
         else console.error("Error un-muting tab");
-        localStorage.removeItem("mutedTab");
         window.close();
     };
     return unmute_tab;
@@ -64,7 +57,6 @@ function MuteTab(tab) {
         if (mute_action) console.debug(`Muted tab with tabid ${tab.id}`);
         else console.error("Error muting tab");
         let mutedTab = new Tab(tab.id, true);
-        localStorage.setItem("mutedTab", JSON.stringify(mutedTab));
         window.close();
     };
     return mute_tab;
@@ -73,7 +65,7 @@ function MuteTab(tab) {
 function CloseTab(tab) {
     let close_tab = document.createElement("button");
     close_tab.textContent = "X";
-    close_tab.type = "Term"
+    close_tab.type = "Term";
     close_tab.style = "width: 15%; background-colour: red";
     close_tab.onclick = function () {
         let close_action = browser.tabs.remove(tab.id);
@@ -131,8 +123,7 @@ async function listTabs(tabs) {
     }
     if (tabs.length < 1) {
         let media = document.createElement("p");
-        media.style =
-            "color: red; font-weight: semi-bold; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
+        media.style = "color: red;";
         media.textContent = "No tabs playing audio";
         Outer_Container.appendChild(media);
         console.warn("No tabs playing audio");

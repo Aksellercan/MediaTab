@@ -12,6 +12,12 @@ body {
     height: 25px;
 }
 
+p {
+    color: black;
+    font-weight: semi-bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 button {
     border:hsl(from color 173 127 256);
     width: 100%;
