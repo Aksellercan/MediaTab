@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 async function getAudibleTabs() {
-    return await browser.tabs.query({ audible: true });
+    return await browser.tabs.query({ currentWindow: true, audible: true });
+}
+
+async function getMutedTabs() {
+    return await browser.tabs.query({ currentWindow: true, muted: true });
 }
 
 function LimitTabName(name) {
@@ -32,14 +36,22 @@ function CreateTitleElements(tab) {
 }
 
 function UnMuteTab() {
-    let parsed_tab_obj = JSON.parse(localStorage.getItem("mutedTab"));
-    let unmute_action = browser.tabs.update(parsed_tab_obj.tabid, {
-        muted: false,
-    });
-    if (unmute_action)
-        console.debug(`Un-muted tab with tabid ${parsed_tab_obj.tabid}`);
-    else console.error("Error un-muting tab");
-    localStorage.removeItem("mutedTab");
+    let unmute_tab = document.createElement("button");
+    unmute_tab.textContent = "U";
+    unmute_tab.type = "Mute";
+    unmute_tab.style = "width: 15%; background-colour: blue";
+    unmute_tab.onclick = function () {
+        let parsed_tab_obj = JSON.parse(localStorage.getItem("mutedTab"));
+        let unmute_action = browser.tabs.update(parsed_tab_obj.tabid, {
+            muted: false,
+        });
+        if (unmute_action)
+            console.debug(`Un-muted tab with tabid ${parsed_tab_obj.tabid}`);
+        else console.error("Error un-muting tab");
+        localStorage.removeItem("mutedTab");
+        window.close();
+    };
+    return unmute_tab;
 }
 
 function MuteTab(tab) {
@@ -85,36 +97,50 @@ function SwitchTab(tab) {
     return switch_tab;
 }
 
-function CreateButtonElements(tab) {
+function CreateButtonElements(tab, muteButton) {
     let buttons_container = document.createElement("div");
     buttons_container.appendChild(SwitchTab(tab));
-    buttons_container.appendChild(MuteTab(tab));
+    buttons_container.appendChild(muteButton);
     buttons_container.appendChild(CloseTab(tab));
     return buttons_container;
 }
 
-function GenerateHTMLElements(tab) {
+function GenerateTabElements(tab) {
     let media_div = document.createElement("div");
     media_div.appendChild(CreateTitleElements(tab));
-    media_div.appendChild(CreateButtonElements(tab));
+    media_div.appendChild(CreateButtonElements(tab, MuteTab(tab)));
+    return media_div;
+}
+
+function GenerateMutedTabElements(tab) {
+    let media_div = document.createElement("div");
+    media_div.appendChild(CreateTitleElements(tab));
+    media_div.appendChild(CreateButtonElements(tab, UnMuteTab(tab)));
     return media_div;
 }
 
 async function listTabs(tabs) {
-    const media_list = document.getElementById("media-list");
+    const Outer_Container = document.getElementById("Outer_Container");
+    let mutedTabs = await getMutedTabs();
+    console.log(`Muted tabs length: ${mutedTabs.length}`);
+    if (mutedTabs.length > 0) {
+        for (const tab of mutedTabs) {
+            Outer_Container.appendChild(GenerateMutedTabElements(tab));
+            console.debug(`Muted Tab: ${tab.title}`);
+        }
+    }
     if (tabs.length < 1) {
         let media = document.createElement("p");
         media.style =
             "color: red; font-weight: semi-bold; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
         media.textContent = "No tabs playing audio";
-        media_list.appendChild(media);
+        Outer_Container.appendChild(media);
         console.warn("No tabs playing audio");
     }
     let count = 0;
     for (const tab of tabs) {
         if (tab.audible) {
-            let media = GenerateHTMLElements(tab);
-            media_list.appendChild(media);
+            Outer_Container.appendChild(GenerateTabElements(tab));
             count++;
             console.debug(`Tab ${count}: ${tab.title}`);
         }
