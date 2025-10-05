@@ -26,34 +26,38 @@ p {
 }
 
 button {
-    border:hsl(from color 173 127 256);
-    width: 100%;
+    border: none;
+    width: 14%;
     margin: 2% 1px 5px;
     padding: 4px;
     text-align: center;
     font-size: small;
     cursor: pointer;
-    background-color: #caffec;
+    border-radius: 5px;
+    background-color: white;
 }
 
 button:hover {
     background-color: aquamarine;
 }
 
-button[type="Term"] {
-    width: 14%;
-    background-color: #fbe5c9;
+button[type="switch"] {
+    width: 70%;
+    text-align: left
+}
+
+button[type="switch"]:hover {
+    background-color: aquamarine;
 }
 
 button[type="Term"]:hover {
     background-color: red;
 }
 
-button[type="Mute"] {
-    width: 14%;
-    background-color: #c0ffff;
-}
-
 button[type="Mute"]:hover {
     background-color: #00b3ff;
+}
+
+button[type="UnMute"]:hover {
+    background-color: yellowgreen;
 }

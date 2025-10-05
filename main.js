@@ -16,8 +16,7 @@ async function getMutedTabs() {
 
 function LimitTabName(name) {
     console.debug(`Tab name length: ${name.length}`);
-    // let limit = 80;
-    let limit = 45
+    let limit = 45;
     if (name.length < limit) {
         return name;
     }
@@ -39,9 +38,8 @@ function CreateTitleElements(tab) {
 
 function UnMuteTab(tab) {
     let unmute_tab = document.createElement("button");
-    unmute_tab.textContent = "U";
-    unmute_tab.type = "Mute";
-    unmute_tab.style = "width: 15%; background-colour: blue";
+    unmute_tab.textContent = "Unmute";
+    unmute_tab.type = "UnMute";
     unmute_tab.onclick = function () {
         let unmute_action = browser.tabs.update(tab.id, { muted: false });
         if (unmute_action) console.debug(`Un-muted tab with tabid ${tab.id}`);
@@ -53,7 +51,7 @@ function UnMuteTab(tab) {
 
 function MuteTab(tab) {
     let mute_tab = document.createElement("button");
-    mute_tab.textContent = "M";
+    mute_tab.textContent = "Mute";
     mute_tab.type = "Mute";
     mute_tab.onclick = function () {
         let mute_action = browser.tabs.update(tab.id, { muted: true });
@@ -80,7 +78,7 @@ function CloseTab(tab) {
 function SwitchTab(tab) {
     let switch_tab = document.createElement("button");
     switch_tab.textContent = "Switch to tab";
-    switch_tab.style = "width: 69%;";
+    switch_tab.type = "switch";
     switch_tab.onclick = function () {
         let switch_action = browser.tabs.update(tab.id, { active: true });
         if (switch_action) console.debug(`Switched tab to tabid ${tab.id}`);
@@ -114,8 +112,12 @@ function GenerateMutedTabElements(tab) {
 
 async function listMutedTabs(Outer_Container) {
     let mutedTabs = await getMutedTabs();
-    console.log(`Muted tabs length: ${mutedTabs.length}`);
     if (mutedTabs.length > 0) {
+        console.log(`Muted tabs length: ${mutedTabs.length}`);
+        let title = document.createElement("p");
+        title.style = "color: blue;";
+        title.textContent = "Muted Tabs";
+        Outer_Container.appendChild(title);
         for (const tab of mutedTabs) {
             Outer_Container.appendChild(GenerateMutedTabElements(tab));
             console.debug(`Muted Tab: ${tab.title}`);
