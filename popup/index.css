@@ -12,8 +12,15 @@ body {
     height: 25px;
 }
 
+#title_container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 p {
     color: black;
+    margin: 0px;
     font-weight: semi-bold;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -21,10 +28,10 @@ p {
 button {
     border:hsl(from color 173 127 256);
     width: 100%;
-    margin: 3% auto;
+    margin: 2% 1px 5px;
     padding: 4px;
     text-align: center;
-    font-size: 1.5em;
+    font-size: small;
     cursor: pointer;
     background-color: #caffec;
 }
@@ -34,6 +41,7 @@ button:hover {
 }
 
 button[type="Term"] {
+    width: 14%;
     background-color: #fbe5c9;
 }
 
@@ -42,6 +50,7 @@ button[type="Term"]:hover {
 }
 
 button[type="Mute"] {
+    width: 14%;
     background-color: #c0ffff;
 }
 

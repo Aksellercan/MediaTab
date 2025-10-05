@@ -16,7 +16,8 @@ async function getMutedTabs() {
 
 function LimitTabName(name) {
     console.debug(`Tab name length: ${name.length}`);
-    let limit = 80;
+    // let limit = 80;
+    let limit = 45
     if (name.length < limit) {
         return name;
     }
@@ -25,6 +26,7 @@ function LimitTabName(name) {
 
 function CreateTitleElements(tab) {
     let title_container = document.createElement("div");
+    title_container.id = "title_container";
     let media_text = document.createElement("p");
     let media_ico = document.createElement("img");
     media_ico.src = tab.favIconUrl;
@@ -53,7 +55,6 @@ function MuteTab(tab) {
     let mute_tab = document.createElement("button");
     mute_tab.textContent = "M";
     mute_tab.type = "Mute";
-    mute_tab.style = "width: 15%; background-colour: blue";
     mute_tab.onclick = function () {
         let mute_action = browser.tabs.update(tab.id, { muted: true });
         if (mute_action) console.debug(`Muted tab with tabid ${tab.id}`);
@@ -67,7 +68,6 @@ function CloseTab(tab) {
     let close_tab = document.createElement("button");
     close_tab.textContent = "X";
     close_tab.type = "Term";
-    close_tab.style = "width: 15%; background-colour: red";
     close_tab.onclick = function () {
         let close_action = browser.tabs.remove(tab.id);
         if (close_action) console.debug(`Closed tab with tabid ${tab.id}`);
@@ -80,7 +80,7 @@ function CloseTab(tab) {
 function SwitchTab(tab) {
     let switch_tab = document.createElement("button");
     switch_tab.textContent = "Switch to tab";
-    switch_tab.style = "width: 70%;";
+    switch_tab.style = "width: 69%;";
     switch_tab.onclick = function () {
         let switch_action = browser.tabs.update(tab.id, { active: true });
         if (switch_action) console.debug(`Switched tab to tabid ${tab.id}`);
