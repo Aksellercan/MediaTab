@@ -1,6 +1,24 @@
-html,
 body {
+    /* Variables */
+    --background-color: #42414D;
+    --text-color: white;
+    --switch-button-hover: #5E5D69;
+    --mute-button-hover: var(--switch-button-hover);
+    --term-button-hover: var(--switch-button-hover);
+    --unmute-button-hover: var(--switch-button-hover);
+
+    background-color: var(--background-color);
+    max-height: 400px;
     width: 400px;
+}
+
+body.light {
+    --background-color: white;
+    --text-color: black;
+    --switch-button-hover: aquamarine;
+    --mute-button-hover: #00b3ff;
+    --term-button-hover: red;
+    --unmute-button-hover: yellowgreen;
 }
 
 .hidden {
@@ -18,27 +36,32 @@ body {
     gap: 5px;
 }
 
+#no_tabs_info {
+    color: var(--no-tabs);
+}
+
 p {
-    color: black;
+    color: var(--text-color);
     margin: 0px;
-    font-weight: semi-bold;
+    margin-bottom: 0px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 button {
+    color: var(--text-color);
     border: none;
-    width: 14%;
-    margin: 2% 1px 5px;
+    width: 20%;
+    margin: 0px;
     padding: 4px;
     text-align: center;
     font-size: small;
     cursor: pointer;
     border-radius: 5px;
-    background-color: white;
+    background-color: var(--background-color);
 }
 
 button:hover {
-    background-color: aquamarine;
+    background-color: var(--switch-button-hover);
 }
 
 button[type="switch"] {
@@ -46,18 +69,18 @@ button[type="switch"] {
     text-align: left
 }
 
-button[type="switch"]:hover {
-    background-color: aquamarine;
+button[type="Term"] {
+    width: 10%;
 }
 
 button[type="Term"]:hover {
-    background-color: red;
+    background-color: var(--term-button-hover);
 }
 
 button[type="Mute"]:hover {
-    background-color: #00b3ff;
+    background-color: var(--mute-button-hover);
 }
 
 button[type="UnMute"]:hover {
-    background-color: yellowgreen;
+    background-color: var(--unmute-button-hover);
 }

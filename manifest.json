@@ -2,12 +2,17 @@
     "manifest_version": 2,
     "version": "1.0",
     "name": "MediaTab",
-    "description": "Shows tabs playing media and integrates with Spotify API",
+    "description": "Shows tabs playing media",
 
-    "permissions": ["activeTab", "tabs"],
+    "options_ui": {
+        "page": "settings/settings.html"
+    },
+
+    "permissions": ["activeTab", "tabs", "storage"],
 
     "browser_specific_settings": {
         "gecko": {
+            "id": "@mediaTabExtension",
             "data_collection_permissions": {
                 "required": ["none"]
             }
@@ -15,7 +20,7 @@
     },
 
     "browser_action": {
-        "default_icon": "icons/favicon.png",
+        "default_icon": "icons/icon.png",
         "default_title": "MediaTab",
         "default_popup": "popup/index.html"
     }

@@ -1,0 +1,30 @@
+body {
+    background-color: #42414D;
+}
+
+p {
+    margin-left: 5px;
+    font-size: larger;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    margin-bottom: 0px;
+}
+
+#themeSwitcher {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 0px;
+    margin-left: 5px;
+    width: 25%;
+}
+
+.theme_div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+button {
+    margin-top: 5%;
+    width: 3em;
+}

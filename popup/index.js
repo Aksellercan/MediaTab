@@ -1,6 +1,7 @@
 Start();
 
 async function Start() {
+    await setSettings();
     const Outer_Container = document.getElementById("Outer_Container");
     await listAudibleTabs(Outer_Container);
     await listMutedTabs(Outer_Container);
@@ -14,10 +15,19 @@ async function getMutedTabs() {
     return await browser.tabs.query({ currentWindow: true, muted: true });
 }
 
+async function setSettings() {
+    let theme = await browser.storage.sync.get("theme");
+    let setting = "dark";
+    if (theme.theme) {
+        setting = theme.theme;
+    }
+    document.body.classList.toggle(setting);
+}
+
 function LimitTabName(name) {
     console.debug(`Tab name length: ${name.length}`);
-    let limit = 45;
-    if (name.length < limit) {
+    let limit = 42;
+    if (name.length <= limit) {
         return name;
     }
     return name.substring(0, limit).concat("...");
@@ -115,7 +125,6 @@ async function listMutedTabs(Outer_Container) {
     if (mutedTabs.length > 0) {
         console.log(`Muted tabs length: ${mutedTabs.length}`);
         let title = document.createElement("p");
-        title.style = "color: blue;";
         title.textContent = "Muted Tabs";
         Outer_Container.appendChild(title);
         for (const tab of mutedTabs) {
@@ -127,7 +136,6 @@ async function listMutedTabs(Outer_Container) {
 
 function NoTabs() {
     let media = document.createElement("p");
-    media.style = "color: red;";
     media.textContent = "No tabs playing audio";
     console.warn("No tabs playing audio");
     return media;
