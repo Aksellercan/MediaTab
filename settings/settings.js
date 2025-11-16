@@ -1,27 +1,17 @@
-document.addEventListener("DOMContentLoaded", function () {
-    restoreSettings();
-});
-
-document.getElementById("save").addEventListener("click", function () {
-    saveSettings();
-});
+document.addEventListener("DOMContentLoaded", restoreSettings());
+document.getElementById("save").addEventListener("click", saveSettings());
 
 function saveSettings() {
-    const theme_switcher = document.getElementById("themeSwitcher").value;
-    browser.storage.sync.set({ theme: theme_switcher }, showStatus());
+    browser.storage.sync.set({ theme: document.getElementById("themeSwitcher").value },showStatus());
 }
 
 function showStatus() {
-    const status = document.getElementById("status");
-    status.style = "color: white;";
-    status.textContent = "Options saved.";
+    const status = document.getElementById("status"); status.style = "color: white;"; status.textContent = "Options saved.";
     setTimeout(() => {
         status.textContent = "";
     }, 750);
 }
 
 function restoreSettings() {
-    browser.storage.sync.get({ theme: "dark" }, (items) => {
-        document.getElementById("themeSwitcher").value = items.theme;
-    });
+    browser.storage.sync.get({ theme: "dark" }, (items) => {document.getElementById("themeSwitcher").value = items.theme;});
 }

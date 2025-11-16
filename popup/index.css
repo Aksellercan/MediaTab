@@ -4,7 +4,7 @@ body {
     --text-color: white;
     --switch-button-hover: #5E5D69;
     --mute-button-hover: var(--switch-button-hover);
-    --term-button-hover: var(--switch-button-hover);
+    --close-button-hover: var(--switch-button-hover);
     --unmute-button-hover: var(--switch-button-hover);
 
     background-color: var(--background-color);
@@ -17,7 +17,7 @@ body.light {
     --text-color: black;
     --switch-button-hover: aquamarine;
     --mute-button-hover: #00b3ff;
-    --term-button-hover: red;
+    --close-button-hover: red;
     --unmute-button-hover: yellowgreen;
 }
 
@@ -64,16 +64,16 @@ button:hover {
     background-color: var(--switch-button-hover);
 }
 
-button[type="switch"] {
+button[type="Switch"] {
     width: 70%;
     text-align: left
 }
 
-button[type="Term"] {
+button[type="Close"] {
     width: 10%;
 }
 
-button[type="Term"]:hover {
+button[type="Close"]:hover {
     background-color: var(--term-button-hover);
 }
 
